@@ -7,9 +7,27 @@
 body {
     height: 100vh;
     width: 100vw;
-    overflow: hidden;
+    overflow-y: hidden;
     background-image: linear-gradient(to left, #190B22, #0C164D);
-    padding: 3rem 0;
+}
+
+.background-star {
+    height: 2px;
+    border-radius: 50%;
+    aspect-ratio: 1 / 1;
+    background-color: rgb(255, 255, 255);
+    position: relative;
+    box-shadow: 0 0 5px 4px rgba(255, 255, 255, 0.4);
+    opacity: 0;
+    transition: opacity 1s;
+}
+
+#background-stars {
+    height: 100vh;
+    width: 100vw;
+    position: absolute;
+    top: 0;
+    left: 0;
 }
 
 .swedish {
@@ -22,13 +40,15 @@ body {
 
 .latin {
     font-family: lora;
-    color: #FFD029;
+    color: rgb(255, 208, 41);
     font-size: 24px;
 }
 
 header {
     position: absolute;
     right: 3rem;
+    top: 3rem;
+    transition: opacity 1s;
 }
 
 h1 {
@@ -48,78 +68,93 @@ main {
     height: 100%;
 }
 
-main>* {
-    transition: left 2s, height 2s;
+main div {
+    position: absolute;
+    aspect-ratio: 1 / 1;
+    border-radius: 50%;
+    cursor: pointer;
+    transition: left 2s, height 2s, box-shadow 2s, background-color 2s, opacity 1s;
 }
 
 #sun {
-    position: absolute;
     left: -70rem;
     height: 79.875rem;
-    aspect-ratio: 1 / 1 ;
-    background-color: #FFD029;
-    border-radius: 50%;
+    background-color: rgb(255, 208, 41);
+}
+
+#sun.clicked {
+    box-shadow: 0 0 0 2rem rgba(255, 208, 41, 0.1), 0 0 0 4rem rgba(255, 208, 41, 0.06);
 }
 
 #mercury {
-    position: absolute;
-    left: 20rem;
+    left: 19rem;
     height: 0.875rem;
-    aspect-ratio: 1 / 1;
-    background-color: #888888;
-    border-radius: 50%;
+    background-color: rgb(88, 88, 88);
+}
+
+#mercury.clicked {
+    box-shadow: 0 0 0 2rem rgba(88, 88, 88, 0.1), 0 0 0 4rem rgba(88, 88, 88, 0.06);
 }
 
 #venus {
-    position: absolute;
     left: 25rem;
     height: 1.625rem;
-    aspect-ratio: 1 / 1;
-    background-color: #E7CDCD;
-    border-radius: 50%;
+    background-color: rgb(231, 205, 205);
+}
+
+#venus.clicked {
+    box-shadow: 0 0 0 2rem rgba(231, 205, 205, 0.1), 0 0 0 4rem rgba(231, 205, 205, 0.06);
 }
 
 #earth {
-    position: absolute;
-    left: 30rem;
+    left: 32rem;
     height: 1.75rem;
-    aspect-ratio: 1 / 1;
-    background-color: #428ED4;
-    border-radius: 50%;
+    background-color: rgb(66, 142, 212);
+}
+
+#earth.clicked {
+    box-shadow: 0 0 0 2rem rgba(66, 142, 212, 0.1), 0 0 0 4rem rgba(66, 142, 212, 0.06);
 }
 
 #mars {
-    position: absolute;
-    left: 35rem;
+    left: 38rem;
     height: 0.875rem;
-    aspect-ratio: 1 / 1;
-    background-color: #EF5F5F;
-    border-radius: 50%;
+    background-color: rgb(239, 95, 95);
+}
+
+#mars.clicked {
+    box-shadow: 0 0 0 2rem rgba(239, 95, 95, 0.1), 0 0 0 4rem rgba(239, 95, 95, 0.06);
 }
 
 #jupiter {
-    position: absolute;
     left: 45rem;
     height: 11.75rem;
-    aspect-ratio: 1 / 1;
-    background-color: #E29468;
-    border-radius: 50%;
+    background-color: rgb(226, 148, 104);
+}
+
+#jupiter.clicked {
+    box-shadow: 0 0 0 2rem rgba(226, 148, 104, 0.1), 0 0 0 4rem rgba(226, 148, 104, 0.06);
 }
 
 #saturn {
-    position: absolute;
     left: 65rem;
     height: 9rem;
-    aspect-ratio: 1 / 1;
-    background-color: #C7AA72;
-    border-radius: 50%;
+    background-color: rgb(199, 170, 114);
+}
+
+#saturn.clicked {
+    box-shadow: 0 0 0 2rem rgba(199, 170, 114, 0.1), 0 0 0 4rem rgba(199, 170, 114, 0.06);
+}
+
+#saturn.clicked>#rings {
+    background-color: rgba(255, 255, 255, 0);
 }
 
 #rings {
-    height: 5.5px;
-    width: 218px;
+    height: 3.8%;
+    width: 151%;
     border-radius: 50%;
-    background-color: rgba(255, 255, 255, 1);
+    background-color: rgba(255, 255, 255, 0.4);
     position: absolute;
     top: 50%;
     left: 50%;
@@ -127,20 +162,27 @@ main>* {
 }
 
 #uranus {
-    position: absolute;
-    left: 80rem;
+    left: 83rem;
     height: 4.25rem;
-    aspect-ratio: 1 / 1;
-    background-color: #C9D4F1;
-    border-radius: 50%;
+    background-color: rgb(201, 212, 241);
+}
+
+#uranus.clicked {
+    box-shadow: 0 0 0 2rem rgba(201, 212, 241, 0.1), 0 0 0 4rem rgba(201, 212, 241, 0.06);
 }
 
 #neptune {
-    position: absolute;
-    left: 90rem;
+    left: 97rem;
     height: 4.25rem;
-    aspect-ratio: 1 / 1;
-    background-color: #7A91A7;
-    border-radius: 50%;
+    background-color: rgb(122, 145, 167);
 }
 
+#neptune.clicked {
+    box-shadow: 0 0 0 2rem rgba(122, 145, 167, 0.1), 0 0 0 4rem rgba(122, 145, 167, 0.06);
+}
+
+footer {
+    position: absolute;
+    bottom: 2rem;
+    left: 50%;
+}
