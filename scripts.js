@@ -3,6 +3,7 @@ const BASE_URL = 'https://n5n3eiyjb0.execute-api.eu-north-1.amazonaws.com'
 const planetEls = [...document.querySelectorAll('main>*')]
 const headerEl = document.querySelector('header')
 const backgroundStarsEl = document.getElementById('background-stars')
+const overlayEl = document.getElementById('overlay')
 
 let canClick = true
 
@@ -24,7 +25,6 @@ async function getPlanets() {
 }
 
 const planets = await getPlanets()
-console.log(planets)
 
 //strör ut bakgrundsstjärnor
 for (let i = 0; i<100; i++) {
@@ -44,10 +44,13 @@ planetEls.forEach(planetEl => {
 function clickPlanet(planet) {
     if (canClick) {
         zoomIn(planet)
-        let planetObj = planets[planetEls.indexOf(planet)]
+        setTimeout(() => {
+            openOverlay(planet)
+        }, 2000)
         canClick = false
     } else {
         zoomOut(planet)
+        overlayEl.innerHTML = ''
         canClick = true
     }
 }
@@ -59,6 +62,7 @@ function zoomIn(planet) {
     planetEls.forEach(planetEl => {
         if (planetEl != planet) {
             planetEl.style.opacity = '0'
+            planetEl.style.cursor = 'unset'
         }
     })
     headerEl.style.opacity = '0'
@@ -75,10 +79,45 @@ function zoomOut(planet) {
     planet.classList.remove('clicked')
     planetEls.forEach(planetEl => {
         planetEl.style.opacity = '1'
+        planetEl.style.cursor = 'pointer'
     })
     headerEl.style.opacity = '1'
     let starEls = [...backgroundStarsEl.children]
     starEls.forEach(starEl => {
         starEl.style.opacity = '0'
     })
+}
+
+
+
+
+
+function openOverlay(planet) {
+    let planetObj = planets[planetEls.indexOf(planet)]
+    console.log(planetObj)
+    overlayEl.innerHTML = `
+    <h2 class="swedish">${planetObj.name.toUpperCase()}</h2>
+    <h3 class="latin">${planetObj.latinName.toUpperCase()}</h3>
+    <p>${planetObj.desc}</p>
+    <hr>
+    <h3>OMKRETS</h3>
+    <p>${spaceOutNumber(planetObj.circumference)}km</p>
+    <h3>KM FRÅN SOLEN</h3>
+    <p>${spaceOutNumber(planetObj.distance)}km</p>
+    <h3>MAX TEMPERATUR</h3>
+    <p>${planetObj.temp.day}C</p>
+    <h3>MIN TEMPERATUR</h3>
+    <p>${planetObj.temp.night}C</p>
+    <hr>
+    <h3>MÅNAR</h3>
+    <p>${planetObj.moons.length>0 ? planetObj.moons.join(', ') : 'Inga'}
+    `
+}
+
+function spaceOutNumber(num) {
+    num = [...num.toString()]
+    for (let i = num.length; i>0; i-=3) {
+        num.splice(i, 0, ' ')
+    }
+    return num.join('')
 }

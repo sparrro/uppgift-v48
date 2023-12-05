@@ -42,6 +42,7 @@ body {
     font-family: lora;
     color: rgb(255, 208, 41);
     font-size: 24px;
+    letter-spacing: 1rem;
 }
 
 header {
@@ -56,9 +57,31 @@ h1 {
     text-align: end;
 }
 
-header>h3 {
+header h3 {
     width: 100%;
     text-align: end;
+}
+
+#overlay {
+    position: absolute;
+    width: fit-content;
+    max-width: 40rem;
+    top: 3rem;
+    left: 0;
+    right: 0;
+    margin: auto;
+}
+
+#overlay h3 {
+    color: #FFFFFF;
+    font-family: 'Secular One';
+    font-size: 18px;
+}
+
+#overlay p {
+    font-family: 'Roboto Condensed';
+    font-size: 18px;
+    color: white;
 }
 
 main {
