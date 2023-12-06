@@ -30,8 +30,8 @@ const planets = await getPlanets()
 for (let i = 0; i<100; i++) {
     let star = document.createElement('div')
     star.classList.add('background-star')
-    star.style.top = `${Math.floor(Math.random()*100)}%`
-    star.style.left = `${Math.floor(Math.random()*100)}%`
+    star.style.top = `${Math.floor(Math.random()*100)}.${Math.floor(Math.random()*99)}%`
+    star.style.left = `${Math.floor(Math.random()*100)}.${Math.floor(Math.random()*99)}%`
     backgroundStarsEl.appendChild(star)
 }
 
@@ -63,6 +63,7 @@ function zoomIn(planet) {
         if (planetEl != planet) {
             planetEl.style.opacity = '0'
             planetEl.style.cursor = 'unset'
+            planetEl.title = ''
         }
     })
     headerEl.style.opacity = '0'
@@ -80,6 +81,7 @@ function zoomOut(planet) {
     planetEls.forEach(planetEl => {
         planetEl.style.opacity = '1'
         planetEl.style.cursor = 'pointer'
+        planetEl.title = planets[planetEls.indexOf(planetEl)].name
     })
     headerEl.style.opacity = '1'
     let starEls = [...backgroundStarsEl.children]
@@ -88,29 +90,24 @@ function zoomOut(planet) {
     })
 }
 
-
-
-
-
 function openOverlay(planet) {
     let planetObj = planets[planetEls.indexOf(planet)]
-    console.log(planetObj)
     overlayEl.innerHTML = `
-    <h2 class="swedish">${planetObj.name.toUpperCase()}</h2>
-    <h3 class="latin">${planetObj.latinName.toUpperCase()}</h3>
-    <p>${planetObj.desc}</p>
-    <hr>
-    <h3>OMKRETS</h3>
-    <p>${spaceOutNumber(planetObj.circumference)}km</p>
-    <h3>KM FRÅN SOLEN</h3>
-    <p>${spaceOutNumber(planetObj.distance)}km</p>
-    <h3>MAX TEMPERATUR</h3>
-    <p>${planetObj.temp.day}C</p>
-    <h3>MIN TEMPERATUR</h3>
-    <p>${planetObj.temp.night}C</p>
-    <hr>
-    <h3>MÅNAR</h3>
-    <p>${planetObj.moons.length>0 ? planetObj.moons.join(', ') : 'Inga'}
+        <h2 class="swedish">${planetObj.name.toUpperCase()}</h2>
+        <h3 class="latin">${planetObj.latinName.toUpperCase()}</h3>
+        <p>${planetObj.desc}</p>
+        <hr>
+        <h3>OMKRETS</h3>
+        <h3>KM FRÅN SOLEN</h3>
+        <p>${spaceOutNumber(planetObj.circumference)}km</p>
+        <p>${spaceOutNumber(planetObj.distance)}km</p>
+        <h3>MAX TEMPERATUR</h3>
+        <h3>MIN TEMPERATUR</h3>
+        <p>${planetObj.temp.day}C</p>
+        <p>${planetObj.temp.night}C</p>
+        <hr>
+        <h3>MÅNAR</h3>
+        <p>${planetObj.moons.length>0 ? planetObj.moons.join(', ') : 'Inga'}</p>
     `
 }
 

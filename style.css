@@ -66,10 +66,16 @@ header h3 {
     position: absolute;
     width: fit-content;
     max-width: 40rem;
-    top: 3rem;
+    top: 4rem;
     left: 0;
     right: 0;
     margin: auto;
+    display: grid;
+    grid-template-columns: repeat(2, 1fr);
+}
+
+#overlay h2, #overlay h3:nth-child(2), #overlay p:nth-child(3), #overlay hr, #overlay h3:nth-child(14), #overlay p:nth-child(15) {
+    grid-column: 1 / span 2;
 }
 
 #overlay h3 {
@@ -78,10 +84,24 @@ header h3 {
     font-size: 18px;
 }
 
+#overlay h3:nth-child(2) {
+    font-family: lora;
+    color: rgb(255, 208, 41);
+    font-size: 24px;
+    letter-spacing: 1rem;
+    margin: 0.5rem 0 1rem 0;
+}
+
 #overlay p {
     font-family: 'Roboto Condensed';
     font-size: 18px;
+    line-height: 30.6px;
     color: white;
+}
+
+#overlay hr {
+    margin: 2rem 0;
+    border: 1px solid rgba(255, 255, 255, 0.2);
 }
 
 main {
